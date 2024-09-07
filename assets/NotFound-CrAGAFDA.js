@@ -1,0 +1,1 @@
+import{j as o}from"./index-CsuXumr5.js";const t="_root_maqmx_1",s={root:t},r=()=>o.jsx("h1",{className:s.root,children:"Ничего не найдено 😕"}),e=()=>o.jsx("div",{className:"container",children:o.jsx(r,{})});export{e as default};
