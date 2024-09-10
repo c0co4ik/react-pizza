@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 type HandleFilter = (id: number) => void
 
@@ -20,6 +20,28 @@ export const Categories: React.FC<CategoriesProps> = React.memo(({
 		{ id: 5, name: 'Закрытые' },
 	]
 
+	const [openPopupBurger, setOpenPopupBurger] = React.useState(false);
+	const menuRef = React.useRef<HTMLDivElement>(null);
+
+	const handleClickBurger = () => {
+		setOpenPopupBurger(prev => !prev);
+	}
+
+	useEffect(() => {
+		const clickCloseMenu = (e: MouseEvent) => {
+			const path = e.composedPath();
+			if(menuRef.current && !path.includes(menuRef.current)) {
+				setOpenPopupBurger(false);
+
+			}
+		}
+		document.body.addEventListener('click', clickCloseMenu)
+
+		return () => {
+			document.body.removeEventListener('click', clickCloseMenu)
+		}
+	}, [])
+
 	return (
 		<div className='categories'>
 			<ul className='menu-dt'>
@@ -33,14 +55,15 @@ export const Categories: React.FC<CategoriesProps> = React.memo(({
 					</li>
 				))}
 			</ul>
-			<div className='menu'>
+			<div ref={menuRef} className='menu'>
 				<input
 					type='checkbox'
 					id='burger-checkbox'
 					className='burger-checkbox'
+					defaultChecked={openPopupBurger}
 				/>
-				<label htmlFor='burger-checkbox' className='burger'></label>
-				<ul className='menu-list'>
+				<label onClick={handleClickBurger} htmlFor='burger-checkbox' className='burger'></label>
+				{openPopupBurger && <ul className='menu-list'>
 					{categories.map(item => (
 						<li
 							onClick={() => handleFilter(item.id)}
@@ -50,7 +73,7 @@ export const Categories: React.FC<CategoriesProps> = React.memo(({
 							{item.name}
 						</li>
 					))}
-				</ul>
+				</ul>}
 			</div>
 		</div>
 	)
