@@ -17,7 +17,7 @@ function App() {
 					<Header />
 					<div className='content'>
 							<Routes>
-								<Route path='/' element={<Home />} />
+								<Route path='/react-pizza/' element={<Home />} />
 								<Route path='/cart' element={
 									<React.Suspense fallback={<div>Идет загрузка корзины...</div>}>
 										<Cart />
