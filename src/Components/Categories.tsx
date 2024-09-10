@@ -60,7 +60,8 @@ export const Categories: React.FC<CategoriesProps> = React.memo(({
 					type='checkbox'
 					id='burger-checkbox'
 					className='burger-checkbox'
-					defaultChecked={openPopupBurger}
+					checked={openPopupBurger}
+					readOnly
 				/>
 				<label onClick={handleClickBurger} htmlFor='burger-checkbox' className='burger'></label>
 				{openPopupBurger && <ul className='menu-list'>
